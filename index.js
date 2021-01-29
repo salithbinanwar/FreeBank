@@ -20,11 +20,14 @@ depositBtn.addEventListener('click', function () {
 });
 
 
-// withdraw button event
+// withdraw button handler
 const withdrawBtn = document.getElementById('addWithdraw')
 withdrawBtn.addEventListener('click', function() {
-     const withdrawNumber = getInputNumber('withdrawAmount')
-     console.log(withdrawNumber);
+     const withdrawNumber = getInputNumber('withdrawAmount');
+     updateSpantext('currentWithdraw',withdrawNumber);
+    //  updateSpantext('currentBalance',-1* withdrawNumber) <==> this also canbe  used for decresing the amount
+     minusSpantext('currentBalance', withdrawNumber)
+    document.getElementById('withdrawAmount').value='';
 })
 
 function getInputNumber(id) {
@@ -40,4 +43,17 @@ function updateSpantext(id, depositNumber) {
     const totalAmount = depositNumber + currentNumber;
     document.getElementById(id).innerText = totalAmount;
     
+}
+
+function minusSpantext(id, depositNumber) {
+    const current = document.getElementById(id).innerText;
+    const currentNumber = parseFloat(current);
+    const totalAmount =  currentNumber - depositNumber ;
+    
+    if ( totalAmount > 0) {
+        document.getElementById(id).innerText = totalAmount;
+    } else {
+        document.getElementById(id).innerText = "INSUFFICIENT";
+        
+    }
 }
